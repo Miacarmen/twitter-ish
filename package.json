@@ -1,0 +1,29 @@
+{
+  "name": "twitter-ish",
+  "version": "1.0.0",
+  "description": "Social Network App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed",
+    "heroku-postbuild": "node utils/seed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miacarmen/twitter-ish.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Miacarmen/twitter-ish/issues"
+  },
+  "homepage": "https://github.com/Miacarmen/twitter-ish#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.4",
+    "nodemon": "^2.0.16"
+  }
+}
