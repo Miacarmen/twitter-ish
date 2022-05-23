@@ -14,7 +14,7 @@ module.exports = {
       });
   },
   // GET a single user by its `_id`
-  // with populated thought and friend data
+  // with Populated thought and friend data
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
     .select('-__v')
@@ -32,6 +32,9 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   // TO DO: UPDATE a user by `_id`
+  updateUser(req, res) {
+    User.findOneAndUpdate({ _id: req.params.userId })
+  },
 
   // DELETE a user by `_id`
   deleteUser(req, res) {
