@@ -1,6 +1,7 @@
 const { Schema, model } = require("mongoose");
+const moment = require('moment');
 
-const thoughtSchema = new Schema(
+const ThoughtSchema = new Schema(
   {
     thoughtText: {
       type: String,
@@ -12,8 +13,8 @@ const thoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      // TO DO: use a getter method to format the timestamp on query
-      
+      get: (createdAtVal) =>
+        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
     },
     // refers to the user that created this thought
     username: {
@@ -21,7 +22,7 @@ const thoughtSchema = new Schema(
       required: true,
     },
     // replies
-    reactions: [reactionSchema],
+    reactions: [ReactionSchema],
   },
   {
     timestamps: true,
@@ -34,7 +35,7 @@ const thoughtSchema = new Schema(
 );
 
 // subdocument of `reaction` field in Thought model
-const reactionSchema = new Schema(
+const ReactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
@@ -52,7 +53,8 @@ const reactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      // TO DO: use getter method to format the timestamp on query
+      get: (createdAtVal) =>
+        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
     },
   },
   {
@@ -65,13 +67,12 @@ const reactionSchema = new Schema(
   }
 );
 
-thoughtSchema
-  .virtual("reactionCount")
+ThoughtSchema.virtual("reactionCount")
   // retrieve the length of the thought's `reactions` array field on query
   .get(function () {
-    return `${this.reactions.length}`;
+    return this.reactions.length;
   });
 
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", ThoughtSchema);
 
 module.exports = Thought;
