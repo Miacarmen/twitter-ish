@@ -47,7 +47,7 @@ module.exports = {
   updateUser(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.id },
-      { $addToSet: req.body },
+      { $set: req.body },
       { runValidators: true, new: true }
     )
       .then(async (userData) => {
@@ -76,36 +76,36 @@ module.exports = {
   },
 
   // Add a friend
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.friendId },
-      { $addToSet: { friends: req.body } },
-      { runValidators: true, new: true }
-    )
-      .then((userData) => {
-        !userData
-          ? res.status(404).json({ message: "No user found with that ID" })
-          : res.json(userData);
-      })
-      .catch((err) => {
-        res.status(500).json(err);
-      });
-  },
+//   addFriend(req, res) {
+//     User.findOneAndUpdate(
+//       { _id: req.params.friendId },
+//       { $addToSet: { friends: req.body } },
+//       { runValidators: true, new: true }
+//     )
+//       .then((userData) => {
+//         !userData
+//           ? res.status(404).json({ message: "No user found with that ID" })
+//           : res.json(userData);
+//       })
+//       .catch((err) => {
+//         res.status(500).json(err);
+//       });
+//   },
 
   // Delete a friend
-  deleteFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $pull: { friends: { friendId: req.params.friendId } } },
-      { runValidators: true, new: true }
-    )
-      .then((userData) => {
-        !userData
-          ? res.status(404).json({ message: "No user found with that ID" })
-          : res.json(userData);
-      })
-      .catch((err) => {
-        res.status(500).json(err);
-      });
-  },
+//   deleteFriend(req, res) {
+//     User.findOneAndUpdate(
+//       { _id: req.params.userId },
+//       { $pull: { friends: { friendId: req.params.friendId } } },
+//       { runValidators: true, new: true }
+//     )
+//       .then((userData) => {
+//         !userData
+//           ? res.status(404).json({ message: "No user found with that ID" })
+//           : res.json(userData);
+//       })
+//       .catch((err) => {
+//         res.status(500).json(err);
+//       });
+//   },
 };

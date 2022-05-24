@@ -25,8 +25,7 @@ module.exports = {
         !thoughtData
           ? res.status(404).json({ message: "No thought found with that ID" })
           : res.json({
-              thoughtData,
-              thoughts: await thoughtData(req.params.id),
+              thoughtData
             });
       })
       .catch((err) => {

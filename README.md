@@ -68,18 +68,22 @@ npm i nodemon
 
 7. To run this application:
 
-* Seed
+* Seed database
 ```bash
-node utils/seed
+npm seed
 ```
 
-* Start
+* Start server
 ```bash
-node index
+npm start
 ```
 
 
 ## Usage
+
+- [User Routes Video](https://www.loom.com/share/df01ef4430cb441e807b5f79e926735d)
+- [Thought Routes Video](https://www.loom.com/share/58779ca4d78c4a26a49e76e007c67e1d)
+
 
 ## Deployed Link
 
