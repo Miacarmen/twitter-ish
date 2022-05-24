@@ -20,8 +20,7 @@ const ReactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      // TO-DO: add get to format date
-      // get: getDateTime,
+      get: (timestamp) => new Date(timestamp).toLocaleDateString()
     },
   },
   {
@@ -46,7 +45,7 @@ const ThoughtSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      // TO-DO: add get to format date
+      get: (timestamp) => new Date(timestamp).toLocaleDateString()
     },
     // refers to the user that created this thought
     username: {

@@ -1,5 +1,6 @@
 const { User, Thought } = require("../models");
 
+
 module.exports = {
   // GET all users
   getUsers(req, res) {
@@ -23,10 +24,12 @@ module.exports = {
       .populate({ path: "thoughts", select: "-__v" })
       .populate({ path: "friends", select: "-__v" })
       .select("-__v")
-      .then(async (userData) =>
-        !userData
+      .then(async (user) =>
+        !user
           ? res.status(404).json({ message: "No user found with that ID" })
-          : res.json({ userData, thoughts: await thought(req.params.id) })
+          : res.json({ user, thoughts: await thought(req.params.id),
+            friendCount: await friendCount(req.params.userId),
+         })
       )
       .catch((err) => {
         console.log(err);

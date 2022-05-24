@@ -1,5 +1,0 @@
-const getDateTime = (date) => {
-
-    // toLocaleString
-
-};
