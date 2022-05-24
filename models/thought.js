@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+// const { getDateTime } = require('../utils/helpers');
 
 // subdocument of `reaction` field in Thought model
 const ReactionSchema = new Schema(
@@ -20,6 +21,7 @@ const ReactionSchema = new Schema(
       type: Date,
       default: Date.now(),
       // TO-DO: add get to format date
+      // get: getDateTime,
     },
   },
   {
