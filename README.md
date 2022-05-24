@@ -32,10 +32,10 @@ Like Twitter, but different. Create a profile, add friends, post your thoughts, 
 ## Installation
 
 1. Login to your github profile
-2. Navigate to the super-girly-notetaker repository found at: [Repository Link](https://github.com/Miacarmen/twitter-ish)
+2. Navigate to the repository found at: [Repository Link](https://github.com/Miacarmen/twitter-ish)
 3. Clone the repo onto your local machine
 4. Open the files in VS Code or your preferred editor
-5. Using the command-line navigate into the assets folder
+5. Using the command-line navigate into the root folder
 6. Install npm package dependencies by using the following commands:
 
 * npm init 
