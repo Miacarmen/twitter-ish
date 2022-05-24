@@ -1,45 +1,11 @@
 const { Schema, model } = require("mongoose");
-const moment = require('moment');
-
-const ThoughtSchema = new Schema(
-  {
-    thoughtText: {
-      type: String,
-      required: true,
-      // must be between 1-280 chars
-      minlength: 1,
-      maxLength: 280,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-      get: (createdAtVal) =>
-        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
-    },
-    // refers to the user that created this thought
-    username: {
-      type: String,
-      required: true,
-    },
-    // replies
-    reactions: [ReactionSchema],
-  },
-  {
-    timestamps: true,
-    toJSON: {
-      getters: true,
-      virtuals: true,
-    },
-    id: false,
-  }
-);
 
 // subdocument of `reaction` field in Thought model
 const ReactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
-      default: new ObjectId(),
+      default: () => new Types.ObjectId()
     },
     reactionBody: {
       type: String,
@@ -53,9 +19,40 @@ const ReactionSchema = new Schema(
     createdAt: {
       type: Date,
       default: Date.now(),
-      get: (createdAtVal) =>
-        moment(createdAtVal).format("MMM DD, YYYY [at] hh:mm a"),
+      // TO-DO: add get to format date
     },
+  },
+  {
+    timestamps: true,
+    toJSON: {
+      getters: true,
+      virtuals: true,
+    },
+    id: false,
+  }
+);
+
+const ThoughtSchema = new Schema(
+  {
+    thoughtText: {
+      type: String,
+      required: true,
+      // must be between 1-280 chars
+      minlength: 1,
+      maxLength: 280,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+      // TO-DO: add get to format date
+    },
+    // refers to the user that created this thought
+    username: {
+      type: String,
+      required: true,
+    },
+    // replies
+    reactions: [ReactionSchema],
   },
   {
     timestamps: true,
