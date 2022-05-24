@@ -1,6 +1,5 @@
 const { User, Thought } = require("../models");
 
-
 module.exports = {
   // GET all users
   getUsers(req, res) {
@@ -27,9 +26,11 @@ module.exports = {
       .then(async (user) =>
         !user
           ? res.status(404).json({ message: "No user found with that ID" })
-          : res.json({ user, thoughts: await thought(req.params.id),
-            friendCount: await friendCount(req.params.userId),
-         })
+          : res.json({
+              user,
+              thoughts: await thought(req.params.id),
+              friendCount: await friendCount(req.params.userId),
+            })
       )
       .catch((err) => {
         console.log(err);
@@ -74,5 +75,39 @@ module.exports = {
         res.json({ message: "User and associated thoughts deleted!" })
       )
       .catch((err) => res.status(500).json(err));
+  },
+
+  // Add a friend
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.friendId },
+      { $addToSet: { friends: req.body } },
+      { runValidators: true, new: true }
+    )
+      .then((userData) => {
+        !userData
+          ? res.status(404).json({ message: "No user found with that ID" })
+          : res.json(userData);
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
+  },
+
+  // Delete a friend
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: { friendId: req.params.friendId } } },
+      { runValidators: true, new: true }
+    )
+      .then((userData) => {
+        !userData
+          ? res.status(404).json({ message: "No user found with that ID" })
+          : res.json(userData);
+      })
+      .catch((err) => {
+        res.status(500).json(err);
+      });
   },
 };
